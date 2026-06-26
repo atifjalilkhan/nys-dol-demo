@@ -1,5 +1,4 @@
 const axios = require('axios');
-
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -10,15 +9,14 @@ module.exports = async (req, res) => {
     const NGROK_URL = process.env.NGROK_URL || 'https://credibly-pliable-cofounder.ngrok-free.dev';
     const { endpoint, ...body } = req.body;
     const url = endpoint === 'session'
-      ? `${NGROK_URL}/api/chatbot/session/new`
-      : `${NGROK_URL}/api/chatbot/message`;
+      ? `${NGROK_URL}/dol/api/chatbot/session/new`
+      : `${NGROK_URL}/dol/api/chatbot/message`;
     const response = await axios.post(url, body, {
       headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
       timeout: 55000
     });
     res.json(response.data);
   } catch (e) {
-    console.error('Error:', e.code, e.message);
     res.status(500).json({ error: e.message });
   }
 };
