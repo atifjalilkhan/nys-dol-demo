@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   try {
     const NGROK_URL = process.env.NGROK_URL || 'https://credibly-pliable-cofounder.ngrok-free.dev';
     const { endpoint, ...body } = req.body;
-    const url = endpoint === 'session' 
+    const url = endpoint === 'session'
       ? `${NGROK_URL}/api/chatbot/session/new`
       : `${NGROK_URL}/api/chatbot/message`;
     const response = await axios.post(url, body, {
